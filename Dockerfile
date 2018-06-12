@@ -48,20 +48,20 @@ RUN tar -zxf /tmp/java/jdk-8u161-linux-x64.tar.gz -C /opt/jdk; rm -f /tmp/java/j
 ENV JAVA_HOME /opt/jdk/jdk1.8.0_161
 
 # Copy ANT and install
-#COPY apache-ant-1.9.6-bin.tar.gz /tmp/ant/
-#RUN tar -zxf /tmp/ant/apache-ant-1.9.6-bin.tar.gz && \
-#mv apache-ant-1.9.6 /opt/ant && \
-#rm -f /tmp/ant/apache-ant-1.9.6-bin.tar.gz
-#ENV ANT_HOME /opt/ant
-#ENV PATH ${PATH}:${ANT_HOME}/bin
+ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/apache-ant-1.9.6-bin.tar.gz /tmp/ant/
+RUN tar -zxf /tmp/ant/apache-ant-1.9.6-bin.tar.gz && \
+mv apache-ant-1.9.6 /opt/ant && \
+rm -f /tmp/ant/apache-ant-1.9.6-bin.tar.gz
+ENV ANT_HOME /opt/ant
+ENV PATH ${PATH}:${ANT_HOME}/bin
 
 #Copy Maven and install
-#COPY apache-maven-3.5.3-bin.tar.gz /tmp/maven/
-#RUN tar -zxf /tmp/maven/apache-maven-3.5.3-bin.tar.gz && \
-#mv apache-maven-3.5.3 /opt/maven && \
-#rm -f /tmp/maven/apache-maven-3.5.3-bin.tar.gz
-#ENV MAVEN_HOME /opt/maven
-#ENV PATH ${PATH}:${MAVEN_HOME}/bin
+ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/apache-maven-3.5.3-bin.tar.gz /tmp/maven/
+RUN tar -zxf /tmp/maven/apache-maven-3.5.3-bin.tar.gz && \
+mv apache-maven-3.5.3 /opt/maven && \
+rm -f /tmp/maven/apache-maven-3.5.3-bin.tar.gz
+ENV MAVEN_HOME /opt/maven
+ENV PATH ${PATH}:${MAVEN_HOME}/bin
 
 USER jenkins
 ENV JENKINS_AGENT_WORKDIR=/home/jenkins/agent
