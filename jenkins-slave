@@ -92,6 +92,7 @@ else
 	#It is fine it blows up for now since it should lead to an error anyway.
 # Allowing Jenkins user to access host docker socket
 # This only works if the docker group does not already exist
+sud service docker start
 
 DOCKER_SOCKET=/var/run/docker.sock
 DOCKER_GROUP=docker
@@ -105,6 +106,7 @@ sudo usermod -aG root ${REGULAR_USER}
 sudo sync 
 sudo echo 1 > /proc/sys/vm/drop_caches
 fi
+
 
 # Change to regular user and run the rest of the entry point
 exec java $JAVA_OPTS $JNLP_PROTOCOL_OPTS -cp /usr/share/jenkins/slave.jar hudson.remoting.jnlp.Main -headless $TUNNEL $URL $WORKDIR $OPT_JENKINS_SECRET $OPT_JENKINS_AGENT_NAME ${@}
