@@ -71,6 +71,5 @@ VOLUME /home/jenkins/.jenkins
 VOLUME /home/jenkins/agent
 WORKDIR /home/jenkins
 
-USER root
 
 ENTRYPOINT ["/usr/local/bin/jenkins-slave"]
