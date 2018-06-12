@@ -31,12 +31,12 @@ RUN yum -y install python \
    && pip install awscli
 
 #installing git
-COPY https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/git-2.17.0.tar.gz /tmp/git-2.17.0.tar.gz
+ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/git-2.17.0.tar.gz /tmp/git-2.17.0.tar.gz
 RUN tar -xf /tmp/git-2.17.0.tar.gz  -C /tmp \
    && cd /tmp/git-2.17.0 && make configure && ./configure --prefix=/usr/local && make install
 
 # Copy docker and install
-COPY https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/docker-latest.tgz /tmp/docker-latest.tgz
+ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/docker-latest.tgz /tmp/docker-latest.tgz
 RUN tar xzf /tmp/docker-latest.tgz -C /tmp \
 	&& rm /tmp/docker-latest.tgz \
     && chmod -R +x /tmp/docker/ \
