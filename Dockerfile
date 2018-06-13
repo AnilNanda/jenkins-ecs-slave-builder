@@ -14,7 +14,8 @@ RUN yum -y update \
 # Add Jenkins remoting and user
 RUN groupadd -g 10000 jenkins \
         && useradd -c "Jenkins user" -d $HOME -u 10000 -g 10000 -m jenkins \
-	&& echo "jenkins ALL = NOPASSWD: /usr/sbin/groupadd, /usr/sbin/usermod, /bin/su" >> /etc/sudoers.d/jenkins 
+	&& echo "jenkins ALL = NOPASSWD: /usr/sbin/groupadd, /usr/sbin/usermod, /bin/su" >> /etc/sudoers.d/jenkins \
+	&& chmod 777 /root
 
 RUN mkdir /opt/jdk; mkdir /usr/share/jenkins/; mkdir /home/jenkins; 
 ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/remoting-3.19.jar /usr/share/jenkins/slave.jar
@@ -72,6 +73,6 @@ VOLUME /home/jenkins/.jenkins
 VOLUME /home/jenkins/agent
 WORKDIR /home/jenkins
 
-USER root
+USER jenkins
 
 ENTRYPOINT ["/usr/local/bin/jenkins-slave"]
