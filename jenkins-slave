@@ -101,9 +101,12 @@ if [ -S ${DOCKER_SOCKET} ]; then
 DOCKER_GID=$(stat -c '%g' ${DOCKER_SOCKET})
 sudo groupadd -for -g ${DOCKER_GID} ${DOCKER_GROUP}
 sudo usermod -aG ${DOCKER_GROUP} ${REGULAR_USER}
+echo "Executed usermod"
 fi
 
 sudo su - ${REGULAR_USER}
+
+docker --help
 
 # Change to regular user and run the rest of the entry point
 exec java $JAVA_OPTS $JNLP_PROTOCOL_OPTS -cp /usr/share/jenkins/slave.jar hudson.remoting.jnlp.Main -headless $TUNNEL $URL $WORKDIR $OPT_JENKINS_SECRET $OPT_JENKINS_AGENT_NAME ${@}
