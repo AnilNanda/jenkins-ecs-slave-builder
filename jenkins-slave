@@ -92,7 +92,6 @@ else
 	#It is fine it blows up for now since it should lead to an error anyway.
 # Allowing Jenkins user to access host docker socket
 # This only works if the docker group does not already exist
-sud service docker start
 
 DOCKER_SOCKET=/var/run/docker.sock
 DOCKER_GROUP=docker
@@ -102,9 +101,7 @@ if [ -S ${DOCKER_SOCKET} ]; then
 DOCKER_GID=$(stat -c '%g' ${DOCKER_SOCKET})
 sudo groupadd -for -g ${DOCKER_GID} ${DOCKER_GROUP}
 sudo usermod -aG ${DOCKER_GROUP} ${REGULAR_USER}
-sudo usermod -aG root ${REGULAR_USER}
-sudo sync 
-sudo echo 1 > /proc/sys/vm/drop_caches
+sudo su - ${REGULAR_USER}
 fi
 
 
