@@ -65,6 +65,9 @@ rm -f /tmp/maven/apache-maven-3.5.3-bin.tar.gz
 ENV MAVEN_HOME /opt/maven
 ENV PATH ${PATH}:${MAVEN_HOME}/bin
 
+RUN groupadd -for -g 457 docker; usermod -aG docker jenkins
+
+
 USER jenkins
 ENV JENKINS_AGENT_WORKDIR=/home/jenkins/agent
 RUN mkdir /home/jenkins/.jenkins && mkdir -p /home/jenkins/agent
