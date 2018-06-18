@@ -13,7 +13,7 @@ RUN yum -y update \
 
 # Add Jenkins remoting and user
 RUN groupadd -g 10000 jenkins \
-        && useradd -c "Jenkins user" -d $HOME -u 10000 -g 10000 -m jenkins \
+        && useradd -c "Jenkins user" -d /home/jenkins -u 10000 -g 10000 -m jenkins \
 	&& echo "jenkins ALL = NOPASSWD: /usr/sbin/groupadd, /usr/sbin/usermod, /bin/su" >> /etc/sudoers.d/jenkins \
 	&& chmod 777 /root; echo "chown -R dev:dev /var/run/docker.sock" >> ~/.bash_profile
 
