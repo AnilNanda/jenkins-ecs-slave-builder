@@ -65,7 +65,7 @@ rm -f /tmp/maven/apache-maven-3.5.3-bin.tar.gz
 ENV MAVEN_HOME /opt/maven
 ENV PATH ${PATH}:${MAVEN_HOME}/bin
 
-RUN groupadd -for -g 497 docker; usermod -aG docker jenkins
+#RUN groupadd -for -g 497 docker; usermod -aG docker jenkins
 
 
 USER jenkins

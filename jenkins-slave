@@ -104,6 +104,7 @@ REGULAR_USER=jenkins
 #echo "Executed usermod"
 #fi
 
+chown -R jenkins:jenkins /var/run/docker.sock
 #sudo su - ${REGULAR_USER}
 
 #docker --help
