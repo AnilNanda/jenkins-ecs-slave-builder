@@ -17,7 +17,7 @@ RUN groupadd -g 10000 jenkins \
 	&& echo "jenkins ALL = NOPASSWD: /usr/sbin/groupadd, /usr/sbin/usermod, /bin/su" >> /etc/sudoers.d/jenkins \
 	&& chmod 777 /root; echo "chown -R dev:dev /var/run/docker.sock" >> ~/.bash_profile
 
-RUN mkdir /opt/jdk; mkdir /usr/share/jenkins/; mkdir /home/jenkins; 
+RUN mkdir /opt/jdk; mkdir /usr/share/jenkins/; mkdir -p /home/jenkins; 
 ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/remoting-3.19.jar /usr/share/jenkins/slave.jar
 RUN chmod 755 /usr/share/jenkins \
 	&& chmod 755 /usr/share/jenkins/slave.jar
@@ -70,7 +70,7 @@ ENV PATH ${PATH}:${MAVEN_HOME}/bin
 
 USER jenkins
 ENV JENKINS_AGENT_WORKDIR=/home/jenkins/agent
-RUN mkdir /home/jenkins/.jenkins && mkdir -p /home/jenkins/agent
+RUN mkdir -p /home/jenkins/.jenkins && mkdir -p /home/jenkins/agent
 
 VOLUME /home/jenkins/.jenkins
 VOLUME /home/jenkins/agent
