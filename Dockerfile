@@ -15,7 +15,7 @@ RUN yum -y update \
 RUN groupadd -g 10000 jenkins \
         && useradd -c "Jenkins user" -d /home/jenkins -u 10000 -g 10000 -m jenkins \
 	&& echo "jenkins ALL = NOPASSWD: /usr/sbin/groupadd, /usr/sbin/usermod, /bin/su" >> /etc/sudoers.d/jenkins \
-	&& chmod 777 /root; echo "chown -R dev:dev /var/run/docker.sock" >> ~/.bash_profile
+	&& chmod 777 /root; echo "chown -R dev:dev /var/run/docker.sock" >> /home/jenkins/.bash_profile
 
 RUN mkdir /opt/jdk; mkdir /usr/share/jenkins/; mkdir -p /home/jenkins; 
 ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/remoting-3.19.jar /usr/share/jenkins/slave.jar
