@@ -38,11 +38,11 @@ RUN tar -xf /tmp/git-2.17.0.tar.gz  -C /tmp \
    && cd /tmp/git-2.17.0 && make configure && ./configure --prefix=/usr/local && make install
 
 # Copy docker and install
-ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/docker-latest.tgz /tmp/docker-latest.tgz
-RUN tar xzf /tmp/docker-latest.tgz -C /tmp \
-	&& rm /tmp/docker-latest.tgz \
-    && chmod -R +x /tmp/docker/ \
-    && mv /tmp/docker/* /usr/bin/
+#ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/docker-latest.tgz /tmp/docker-latest.tgz
+#RUN tar xzf /tmp/docker-latest.tgz -C /tmp \
+#	&& rm /tmp/docker-latest.tgz \
+#    && chmod -R +x /tmp/docker/ \
+#    && mv /tmp/docker/* /usr/bin/
 
 # Copy JDK and install
 ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-depends/jdk-8u161-linux-x64.tar.gz  /tmp/java/jdk-8u161-linux-x64.tar.gz
@@ -65,7 +65,7 @@ rm -f /tmp/maven/apache-maven-3.5.3-bin.tar.gz
 ENV MAVEN_HOME /opt/maven
 ENV PATH ${PATH}:${MAVEN_HOME}/bin
 
-#RUN groupadd -for -g 497 docker; usermod -aG docker jenkins
+RUN groupadd -for -g 497 docker; usermod -aG docker jenkins
 
 
 USER jenkins
