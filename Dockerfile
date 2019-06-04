@@ -16,7 +16,7 @@ RUN groupadd -g 10000 jenkins \
         && useradd -c "Jenkins user" -d /home/jenkins -u 10000 -g 10000 -m jenkins 
 
 RUN mkdir /opt/jdk; mkdir /usr/share/jenkins/; mkdir -p /home/jenkins; 
-ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependencies/remoting-3.19.jar /usr/share/jenkins/slave.jar
+ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependency/remoting-3.19.jar /usr/share/jenkins/slave.jar
 RUN chmod 755 /usr/share/jenkins \
 	&& chmod 755 /usr/share/jenkins/slave.jar
 
@@ -31,7 +31,7 @@ RUN yum -y install python \
    && pip install awscli
 
 #installing git
-ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependencies/git-2.17.0.tar.gz /tmp/git-2.17.0.tar.gz
+ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependency/git-2.17.0.tar.gz /tmp/git-2.17.0.tar.gz
 RUN tar -xf /tmp/git-2.17.0.tar.gz  -C /tmp \
    && cd /tmp/git-2.17.0 && make configure && ./configure --prefix=/usr/local && make install
 
@@ -43,12 +43,12 @@ RUN tar -xf /tmp/git-2.17.0.tar.gz  -C /tmp \
 #    && mv /tmp/docker/* /usr/bin/
 
 # Copy JDK and install
-ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependencies/jdk-8u161-linux-x64.tar.gz  /tmp/java/jdk-8u161-linux-x64.tar.gz
+ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependency/jdk-8u161-linux-x64.tar.gz  /tmp/java/jdk-8u161-linux-x64.tar.gz
 RUN tar -zxf /tmp/java/jdk-8u161-linux-x64.tar.gz -C /opt/jdk; rm -f /tmp/java/jdk-8u161-linux-x64.tar.gz && update-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_161/bin/java 100; update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_161/bin/javac 100
 ENV JAVA_HOME /opt/jdk/jdk1.8.0_161
 
 # Copy ANT and install
-ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependencies/apache-ant-1.9.6-bin.tar.gz /tmp/ant/
+ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependency/apache-ant-1.9.6-bin.tar.gz /tmp/ant/
 RUN tar -zxf /tmp/ant/apache-ant-1.9.6-bin.tar.gz && \
 mv apache-ant-1.9.6 /opt/ant && \
 rm -f /tmp/ant/apache-ant-1.9.6-bin.tar.gz
@@ -56,7 +56,7 @@ ENV ANT_HOME /opt/ant
 ENV PATH ${PATH}:${ANT_HOME}/bin
 
 #Copy Maven and install
-ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependencies/apache-maven-3.5.3-bin.tar.gz /tmp/maven/
+ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependency/apache-maven-3.5.3-bin.tar.gz /tmp/maven/
 RUN tar -zxf /tmp/maven/apache-maven-3.5.3-bin.tar.gz && \
 mv apache-maven-3.5.3 /opt/maven && \
 rm -f /tmp/maven/apache-maven-3.5.3-bin.tar.gz
