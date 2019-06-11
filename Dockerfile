@@ -36,7 +36,7 @@ RUN tar -xf /tmp/git-2.17.0.tar.gz  -C /tmp \
    && cd /tmp/git-2.17.0 && make configure && ./configure --prefix=/usr/local && make install
 
 # Copy docker and install
-ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependencies/docker-latest.tgz /tmp/docker-latest.tgz
+ADD https://s3-ap-southeast-1.amazonaws.com/jenkins-ecs-slave-dependency/docker-latest.tgz /tmp/docker-latest.tgz
 RUN tar xzf /tmp/docker-latest.tgz -C /tmp \
 	&& rm /tmp/docker-latest.tgz \
     && chmod -R +x /tmp/docker/ \
