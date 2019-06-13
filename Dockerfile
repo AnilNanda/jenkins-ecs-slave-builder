@@ -1,4 +1,4 @@
-FROM amazonlinux:2017.03
+FROM amazonlinux:latest
 MAINTAINER CloudOps Version 1.0
 
 USER root
